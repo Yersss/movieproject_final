@@ -1,4 +1,5 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.views.decorators.csrf import csrf_protect
 
 
@@ -35,3 +36,7 @@ def detail(request, model, id):
     except:
         return render(request, '404.html')
     return render(request, '{}_list.html'.format(label), {'items': items, 'number': len(items), 'object': object})
+=======
+
+# Create your views here.
+>>>>>>> 8bd88c93c991ce647e25dc99385f55fe90056418
