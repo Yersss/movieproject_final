@@ -28,11 +28,3 @@ class Expect(models.Model):
 
     def __str__(self):
         return self.username + '|' + self.movieid.movieid
-
-
-class Popularity(models.Model):
-    movieid = models.ForeignKey('Movie', default=' ', on_delete=models.CASCADE)
-    weight = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.movieid.movieid + '|' + str(self.weight)

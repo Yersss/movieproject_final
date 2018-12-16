@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
-
 # Create your views here.
 @csrf_protect
 def user_login(request):
@@ -24,11 +23,9 @@ def user_login(request):
     else:
         return render(request, '404.html')
 
-
 def user_logout(request):
     logout(request)
     return HttpResponse()
-
 
 @csrf_protect
 def user_register(request):

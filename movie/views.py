@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
+from movie.models import *
+from django.http import HttpResponse
 import json
 import math
 
@@ -93,10 +95,13 @@ def seen(request, movie_id):
     if request.POST:
         try:
             d = Seen.objects.get(username=request.user.get_username(), movieid_id=movie_id)
+            e = Expect.objects.get(username=request.user.get_username(), movieid_id=movie_id)
             d.delete()
+            e.delete()
         except:
             return render(request, '404.html')
     records = Seen.objects.filter(username=request.user.get_username())
+    records1 = Expect.objects.filter(username=request.user.get_username())
     movies = []
     for record in records:
         movie_id = str(record).split('|')[1]
