@@ -122,3 +122,6 @@ def expect(request, movie_id):
         movie_id = str(record).split('|')[1]
         movies.append(Movie.objects.get(movieid=movie_id))
     return render(request, 'expect.html', {'items': movies, 'number': len(movies)})
+
+
+    

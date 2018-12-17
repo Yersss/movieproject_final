@@ -1,6 +1,9 @@
 #container {
-    margin: auto;
-    width: 1080px;
+    margin: 90px;
+    width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 0 10px;
 }
 
 #main-pic {

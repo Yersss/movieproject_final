@@ -1,0 +1,11 @@
+.navbar-inverse {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+    height:100%
+}
+body{
+    background: white url(../images/jik.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}

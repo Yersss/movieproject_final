@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 
 {% block mainbody %}
-    <div id="container">
-    <h2>My personal information:</h2>
-    <b><h3 style="color:blue">Username: {{ user.username }}</h3></b>
-    </div>
-    <div id="container">
-        <h2>{{ number }} movie(s) in your Seen List:</h2>
+    <div id="container" style="margin: 150px; width: 500px; padding: 40px; background-color: #F8F8F8; border-radius: 0 10px;">
+    <h3>User Profile:</h3>
+    <b><h4 style="color:blue">Username: {{ user.username }}</h4></b>
+        <h4>{{ number }} movie(s) in your Seen List:</h4>
 
         {% for item in items %}
             <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}</a></h2>
@@ -19,9 +17,8 @@
             <img border="0" src="{{ item.poster }}" alt="Cannot load photo, sorry!" width="200" height="320">
             <hr>
         {% endfor %}
-    </div>
-    <div id="container">
-        <h2>{{ number }} movie(s) in your Expect List:</h2>
+
+        <h4>{{ number }} movie(s) in your Expect List:</h4>
 
         {% for item in items %}
             <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}</a></h2>

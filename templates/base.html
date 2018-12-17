@@ -12,7 +12,8 @@
     <script src="{% static "js/bootstrap.min.js.download" %}"></script>
     <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet">
     <link href="{% static "css/bootstrap-social.css" %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/123.css' %}"/></script>
     <style type="text/css"></style>
 </head>
 
@@ -42,7 +43,7 @@
                 <input type="text" name="title" id="search-input" class="form-control"
                        placeholder="Search Movies"
                        onkeyup="start_timer()" size="55" autocomplete="off" required/>
-                <input type="submit" class="btn btn-default" name="search" value="Submit"/>
+                <input type="submit" class="btn btn-default" name="search" value="Search"/>
 
                 <div class="searchlistdiv"
                      style="position:absolute;top:42px;left:295px;user-select:none;display:none;width: 380px;"
@@ -53,10 +54,8 @@
 
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li><p class="navbar-text" style="color:#fff9fe;"><a href="/movie/seen/">User Profile</a></p></li>
-                    <li style="align-items: center">
-                        <button class="btn btn-tumblr" onclick="logout()" style="margin-top:8px">Logout</button>
-                    </li>
+                    <li><a href="/movie/seen/"><span class="glyphicon glyphicon-user"></span>User Profile</a></li>
+                        <button class="btn btn-tumblr" onclick="logout()" style="margin-top:8px"><span class="glyphicon glyphicon-log-out"></span>Logout</button>
                 {% else %}
                     {% if message %}
                         <li><p class="navbar-text" style="color:red;">{{ message }}</p></li>
@@ -223,19 +222,18 @@
 
 {% block mainbody %}
     {% load static %}
-    <div style=" margin-left: 1%;">
-        <p style="color: white"><b>Recently Popular:</b></p>
+    <div style="margin: 150px; width: 500px; padding: 40px; background-color: #F8F8F8; border-radius: 0 10px; size:auto;">
+        <p style="color: black"><b>Recently Popular:</b></p>
         {% for movie in popular %}
             <a href="/movie/movie_detail/{{ movie.movieid }}">
                 <img id="poster" class="img-rounded" src="{{ movie.poster }}" width="125" height="180">
             </a>
         {% endfor %}
-    </div>
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
 
     {% load static %}
-    <div style=" margin-left: 1%;">
-        <p style="color: white"><b>Recommendation For You:</b></p>
+        <p style="color: black"><b>Recommendation For You:</b></p>
         {% for movie in recommendation %}
             <a href="/movie/movie_detail/{{ movie.movieid }}">
                 <img id="poster" class="img-rounded" src="{{ movie.poster }}" width="125" height="180">
