@@ -2,24 +2,17 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from movie.models import *
 from django.http import HttpResponse
+from .models import addMovies
 import json
 import math
+import csv
 import pandas as pd
-
-def addMovies(request):
-    df = pd.read_csv()
-
 
 # Create your views here.
 def add_seen(request, movie_id):
     if request.is_ajax():
         history = Seen.objects.filter(movieid_id=movie_id, username=request.user.get_username())
         if len(history) == 0:
-            movie = Popularity.objects.get(movieid_id=movie_id)
-            weight = movie.weight
-            movie.delete()
-            new_record = Popularity(movieid_id=movie_id, weight=weight + 3)
-            new_record.save()
             new_record = Seen(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('1')
@@ -31,11 +24,6 @@ def add_expect(request, movie_id):
     if request.is_ajax():
         history = Expect.objects.filter(movieid_id=movie_id, username=request.user.get_username())
         if len(history) == 0:
-            movie = Popularity.objects.get(movieid_id=movie_id)
-            weight = movie.weight
-            movie.delete()
-            new_record = Popularity(movieid_id=movie_id, weight=weight + 3)
-            new_record.save()
             new_record = Expect(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('2')
@@ -45,21 +33,14 @@ def add_expect(request, movie_id):
 
 @csrf_protect
 def detail(request, model, id):
-    items = []
+    #items = []
     try:
         if model.get_name() == 'movie' and id != 'None':
-            try:
-                d = Popularity.objects.get(movieid_id=id)
-                weight = d.weight
-                d.delete()
-                new_record = Popularity(movieid_id=id, weight=weight + 1)
-                new_record.save()
-            except:
-                new_record = Popularity(movieid_id=id, weight=1)
-                new_record.save()
             label = 'actor'
             object = model.objects.get(movieid=id)
-            records = Act.objects.filter(movieid_id=id)
+            items = ''
+            for i in object.genres.all():
+                items = items + i.genre +', '
             if request.user.get_username() != '':
                 seen_list = [str(x).split('|')[1] for x in
                              Seen.objects.filter(username=request.user.get_username())]
@@ -69,11 +50,8 @@ def detail(request, model, id):
                     object.flag = 1
                 if id in expect_list:
                     object.flag = 2
-            for query in records:
-                for actor in Actor.objects.filter(actorid=query.actorid_id):
-                    items.append(actor)
     except:
-        return render(request, '404.htm')
+        return render(request, '404.html')
     return render(request, '{}_list.html'.format(label), {'items': items, 'number': len(items), 'object': object})
 
 def whole_list(request, model, page):

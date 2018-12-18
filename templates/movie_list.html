@@ -20,12 +20,12 @@
         {% for item in items %}
             <table>
                 <td>
-                    <img border="0" src="{{ item.poster }}" alt="Cannot load photo, sorry!" width="180" height="250"
+                    <img src="../images/2." width="180" height="180"
                          style="padding: 10px;">
                 </td>
                 <td style="vertical-align: top;text-align: left;padding: 10px;">
                     <h3><a href="/movie/movie_detail/{{ item.movieid }}"
-                           target="_self">{{ item.title }}({{ item.year }})</a></h3>
+                           target="_self">{{ item.title }}</a></h3>
                 </td>
             </table>
             <hr>
