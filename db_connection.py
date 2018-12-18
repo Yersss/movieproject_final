@@ -6,7 +6,7 @@ def execute_sql(s):
         cur = con.cursor()
         cur.execute(s)
 
-sql = cur.execute("SELECT movie id, movie title, release date FROM movies")
+sql = cur.execute("SELECT * FROM Movies")
 execute_sql(sql)
 
 results = cur.fetchall()

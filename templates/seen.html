@@ -7,29 +7,28 @@
         <h4>{{ number }} movie(s) in your Seen List:</h4>
 
         {% for item in items %}
-            <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}</a></h2>
+            <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}, {{ item.year }}</a></h2>
 
             <form role="form" action="/movie/seen/{{ item.movieid }}" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Delete">
             </form>
-
-            <img border="0" src="{{ item.poster }}" alt="Cannot load photo, sorry!" width="200" height="320">
             <hr>
         {% endfor %}
+            <h2>{{ number }} movie(s) in your Expect List:</h2>
 
-        <h4>{{ number }} movie(s) in your Expect List:</h4>
+            {% for item in items %}
+                <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}</a></h2>
 
-        {% for item in items %}
-            <h2><a href="/movie/movie_detail/{{ item.movieid }}" target="_self">{{ item.title }}</a></h2>
+                <form role="form" action="/movie/expect/{{ item.movieid }}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
 
-            <form role="form" action="/movie/expect/{{ item.movieid }}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-            </form>
+                <img border="0" src="{{ item.poster }}" alt="Cannot load photo, sorry!" width="200" height="320">
+                <hr>
+            {% endfor %}
+        </div>
 
-            <img border="0" src="{{ item.poster }}" alt="Cannot load photo, sorry!" width="200" height="320">
-            <hr>
-        {% endfor %}
     </div>
 {% endblock %}
