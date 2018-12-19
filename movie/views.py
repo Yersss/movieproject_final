@@ -16,9 +16,6 @@ def add_seen(request, movie_id):
             new_record = Seen(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('1')
-        else:
-            history.delete()
-            return HttpResponse('0')
 
 def add_expect(request, movie_id):
     if request.is_ajax():
@@ -27,9 +24,6 @@ def add_expect(request, movie_id):
             new_record = Expect(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('2')
-        else:
-            history.delete()
-            return HttpResponse('0')
 
 @csrf_protect
 def detail(request, model, id):
@@ -77,13 +71,14 @@ def seen(request, movie_id):
     if request.POST:
         try:
             d = Seen.objects.get(username=request.user.get_username(), movieid_id=movie_id)
-            e = Expect.objects.get(username=request.user.get_username(), movieid_id=movie_id)
             d.delete()
+            e = Expect.objects.get(username=request.user.get_username(), movieid_id=movie_id)
             e.delete()
         except:
             return render(request, '404.html')
     records = Seen.objects.filter(username=request.user.get_username())
     records1 = Expect.objects.filter(username=request.user.get_username())
+
     movies = []
     for record in records:
         movie_id = str(record).split('|')[1]
@@ -103,4 +98,7 @@ def expect(request, movie_id):
     for record in records:
         movie_id = str(record).split('|')[1]
         movies.append(Movie.objects.get(movieid=movie_id))
-    return render(request, 'expect.html', {'items': movies, 'number': len(movies)})
+    return render(request, 'seen.html', {'items': movies, 'number': len(movies)})
+
+def profile(request):
+    return render (request, 'profile.html')
