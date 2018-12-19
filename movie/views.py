@@ -72,13 +72,9 @@ def seen(request, movie_id):
         try:
             d = Seen.objects.get(username=request.user.get_username(), movieid_id=movie_id)
             d.delete()
-            e = Expect.objects.get(username=request.user.get_username(), movieid_id=movie_id)
-            e.delete()
         except:
             return render(request, '404.html')
     records = Seen.objects.filter(username=request.user.get_username())
-    records1 = Expect.objects.filter(username=request.user.get_username())
-
     movies = []
     for record in records:
         movie_id = str(record).split('|')[1]
@@ -98,7 +94,7 @@ def expect(request, movie_id):
     for record in records:
         movie_id = str(record).split('|')[1]
         movies.append(Movie.objects.get(movieid=movie_id))
-    return render(request, 'seen.html', {'items': movies, 'number': len(movies)})
+    return render(request, 'expect.html', {'items': movies, 'number': len(movies)})
 
 def profile(request):
     return render (request, 'profile.html')

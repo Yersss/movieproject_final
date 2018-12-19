@@ -2,8 +2,6 @@
 
 {% block mainbody %}
     <div id="container" style="margin: 150px; width: 500px; padding: 40px; background-color: #F8F8F8; border-radius: 0 10px;">
-    <h3>User Profile:</h3>
-    <b><h4 style="color:blue">Username: {{ user.username }}</h4></b>
         <h4>{{ number }} movie(s) in your Seen List:</h4>
 
         {% for item in items %}
@@ -11,6 +9,7 @@
 
             <form role="form" action="/movie/seen/{{ item.movieid }}" method="post">
                 {% csrf_token %}
+                <input type="submit" name="" value="Delete">
             </form>
             <hr>
         {% endfor %}
