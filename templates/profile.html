@@ -3,7 +3,8 @@
 {% block mainbody %}
     <div id="container" style="margin: 150px; width: 500px; padding: 40px; background-color: #F8F8F8; border-radius: 0 10px;">
     <h3>User Profile:</h3>
-    <b><h4 style="color:blue">Username: {{ user.username }}</h4></b><br>
+    <b><h4 style="color:blue">Username: {{ user.username }}</h4></b>
+    <hr>
     <h4><b>Recommended for you:</b></h4>
     {% load static %}
     {% for movie in rec %}
@@ -11,11 +12,13 @@
             {{movie.title}}
         </a><br>
     {% endfor %}<br>
+    <hr>
     <h4><b>Most Viewed Genres:</b></h4>
     {% load static %}
     {% for genre in genres %}
         {{genre}}<br>
     {% endfor %}
+    <hr>
     <h4><b>All Genres:</b></h4>
     {% load static %}
     {% for i in all %}

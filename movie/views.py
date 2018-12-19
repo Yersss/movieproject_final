@@ -179,5 +179,6 @@ def profile(request):
 def search(request):
     if request.GET.get('search'):
         search_value = request.GET['search']
+        print(search_value)
         movies = Movie.object.filter(title__contains=search_value)
-        return render(request, 'movie/movie_search.html', {'movies': movies, 'search_value': search_value, 'query_string0': query_string})
+        return render(request, 'movie_search.html', {'movies': movies, 'search_value': search_value, 'query_string': query_string})
