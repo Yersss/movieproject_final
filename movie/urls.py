@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^expect/(?P<movie_id>.*)', views.expect, name='expect'),
     url(r'^add_expect/(?P<movie_id>.*)', views.add_expect, name='expect'),
     #url(r'^search/(?P<item>.*)/(?P<query_string>.*)/(?P<page>\d*).*', views.search, name='search'),
-    url(r'^profile/', views.profile, name='profile')
+    url(r'^profile/', views.profile, name='profile'),
+    url('movie_search', views.search, name='search')
 ]

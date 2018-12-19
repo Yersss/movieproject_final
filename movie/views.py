@@ -7,6 +7,7 @@ import json
 import math
 import csv
 import pandas as pd
+import numpy as np
 
 # Create your views here.
 def add_seen(request, movie_id):
@@ -97,4 +98,63 @@ def expect(request, movie_id):
     return render(request, 'expect.html', {'items': movies, 'number': len(movies)})
 
 def profile(request):
-    return render (request, 'profile.html')
+    genres_all = []
+    movies = Seen.objects.filter(username = request.user.get_username())
+    # print(movies.movieid_id)
+    for i in movies:
+        for y in i.movieid.genres.all():
+            genres_all.append(y.genre)
+    counts = [1]*len(genres_all)
+    for i in range(len(genres_all)):
+        for y in range(len(genres_all)):
+            if(i==y):
+                continue
+            if(genres_all[i]==genres_all[y]):
+                counts[i]+=1
+    ids = []
+    max = 0
+    for i in range(len(counts)):
+        if(counts[i]>=max):
+            ids.append(i)
+            max = counts[i]
+    genres_recom = []
+    for i in ids:
+        genres_recom.append(genres_all[i])
+    genres_recom = set(genres_recom)
+    genres_recom = list(genres_recom)
+    movies_all = Movie.objects.all()
+    GGG = []
+    for i in movies_all:
+        ggg = []
+        for y in i.genres.all():
+            ggg.append(y.genre)
+        GGG.append(ggg)
+    movies_recom = []
+    for i in range(len(GGG)):
+        cnt = 0
+        for y in GGG[i]:
+            for z in genres_recom:
+                if(y==z):
+                    cnt+=1
+        movies_recom.append(cnt)
+
+    recom = []
+    max = 0
+    for i in range(len(movies_recom)):
+        if(movies_recom[i]>=max):
+            recom.append(i)
+            max = movies_recom[i]
+
+    final = []
+    for i in recom:
+        final.append(movies_all[i])
+
+    data = {}
+    data['rec'] = final
+    return render (request, 'profile.html', data)
+
+def search(request):
+    if request.GET.get('search'):
+        search_value = request.GET['search']
+        movies = Movie.object.filter(title__contains=search_value)
+        return render(request, 'movie/movie_search.html', {'movies': movies, 'search_value': search_value, 'query_string0': query_string})
