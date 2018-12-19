@@ -17,6 +17,9 @@ def add_seen(request, movie_id):
             new_record = Seen(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('1')
+        else:
+            history.delete()
+            return HttpResponse('0')
 
 def add_expect(request, movie_id):
     if request.is_ajax():
@@ -25,6 +28,9 @@ def add_expect(request, movie_id):
             new_record = Expect(movieid_id=movie_id, username=request.user.get_username())
             new_record.save()
             return HttpResponse('2')
+        else:
+            history.delete()
+            return HttpResponse('0')
 
 @csrf_protect
 def detail(request, model, id):
@@ -119,6 +125,8 @@ def profile(request):
             max = counts[i]
     genres_recom = []
     for i in ids:
+        if(counts[i]!=max):
+            continue
         genres_recom.append(genres_all[i])
     genres_recom = set(genres_recom)
     genres_recom = list(genres_recom)
@@ -151,6 +159,21 @@ def profile(request):
 
     data = {}
     data['rec'] = final
+    data['genres'] = genres_recom
+
+    genres_new = []
+    counts_new = []
+    for i in range(len(genres_all)):
+        if(genres_all[i] not in genres_new):
+            genres_new.append(genres_all[i])
+            counts_new.append(counts[i])
+
+    all = []
+    for i in range(len(genres_new)):
+        all.append(genres_new[i] + ' ' + str(counts_new[i]))
+    data['all'] = all
+
+
     return render (request, 'profile.html', data)
 
 def search(request):

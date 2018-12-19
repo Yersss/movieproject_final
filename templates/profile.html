@@ -10,6 +10,16 @@
         <a href="/movie/movie_detail/{{ movie.movieid }}">
             {{movie.title}}
         </a><br>
+    {% endfor %}<br>
+    <h4><b>Most Viewed Genres:</b></h4>
+    {% load static %}
+    {% for genre in genres %}
+        {{genre}}<br>
+    {% endfor %}
+    <h4><b>All Genres:</b></h4>
+    {% load static %}
+    {% for i in all %}
+        {{i}}<br>
     {% endfor %}
   </div>
 </div>

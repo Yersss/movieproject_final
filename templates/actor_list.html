@@ -64,14 +64,10 @@
                         $(this).html($('<span />').width(Math.max(0, (Math.min(10, parseFloat($(this).html())))) * 8));
                     });
                 }
-
             </script>
             {#<div class="Layer" id="layer"></div>#}
-            <h4>Params:<h4>
             <p><b>Release date:</b> {{ object.year }}</p>
             <p><b>Genres:</b> {{ items }}</p>
-
-
             <hr>
         {% endif %}
 
